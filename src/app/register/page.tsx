@@ -1,13 +1,13 @@
 "use client";
 import Image from "next/image";
 import React, { FormEvent, useState } from "react";
-import axios from "axios";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
+import axios from "axios";
 function Page() {
-  const router = useRouter();
+  const router=useRouter();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+
   const [message, setMessage] = useState<string>("");
   const User = {
     username: email,
@@ -18,26 +18,21 @@ function Page() {
     setMessage("");
 
     try {
-      const response = await axios.post("http://localhost:8080/login", User, {
-        headers: {
-          "Content-Type": "application/json",
-          'Access-Control-Allow-Origin': '*',
-        },
-      });
-      console.log(response.data);
-      // Assuming the token is returned in the response
-      const token = response.data;
-      console.log(token);
-      // Save the token in localStorage
-      localStorage.setItem("token", token);
-      // setMessage(response.data);
-      console.log(response.data);
-
-      router.push("/");
+      const response = await axios.post(
+        "http://localhost:8080/register",
+        User,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      setMessage(response.data);
+      router.push("/login");
     } catch (error: any) {
       console.log(error);
       if (error.response) {
-        setMessage(error.response.data || "Bad credentials");
+        setMessage(error.response.data || "the user has not been added");
         console.log(error.response.data);
       } else {
         setMessage("Something went wrong. Please try again");
@@ -72,26 +67,15 @@ function Page() {
             className="w-full rounded-lg outline-none h-14 px-4 border border-gray-300"
             onChange={(e) => setPassword(e.target.value)}
           />
+
           <button
             type="submit"
             className="w-full h-14 bg-blue-600 text-white rounded-lg"
           >
-            Log In
+            Sign up
           </button>
-          <p className="text-blue-600 mt-4 cursor-pointer">
-            Forgotten password?
-          </p>
-          <hr className="border-gray-300 w-full my-4" />
-          <Link href='/register'>
-          <button className="w-[70%] h-14 bg-green-600 text-white rounded-lg">
-            Create New Account
-          </button>
-          </Link>
         </form>
-        <p className="text-center mt-4 text-sm">
-          <span className="font-semibold">Create a Page</span> for a celebrity,
-          brand, or business.
-        </p>
+        <p className="text-center mt-4 text-sm">Welcome to Facebook</p>
       </div>
     </div>
   );

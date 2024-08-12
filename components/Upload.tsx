@@ -14,20 +14,26 @@ function Upload() {
       fileInput.current.click();
     }
   };
-  const [file, setFile] = useState<File|null>(null);
+  const [file, setFile] = useState<File | null>(null);
   const [text, setText] = useState<string>("");
   const handleFormSubmit = (e: FormEvent) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append("text", text);
-    formData.append("userId","6");
-    if(file){
-      formData.append("file",file );
-    }   console.log(formData);
-    axios.post("http://localhost:8080/post", formData, {
+    formData.append("userId", "6");
+    if (file) {
+      formData.append("file", file);
+    }
+    console.log(formData);
+    const token = localStorage.getItem("token");
+    axios
+      .post("http://localhost:8080/post", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
-        },
+          Authorization: `Bearer ${token}`,
+          "Access-Control-Allow-Origin": "*",
+        }
+       
       })
       .then((repsonse) => {
         console.log("post added successfuly" + repsonse.data);

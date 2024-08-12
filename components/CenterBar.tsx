@@ -30,12 +30,10 @@ function CenterBar() {
   return (
     <div className="lg:basis-1/2 flex flex-col items-center gap-4 px-6 bg-slate-200 h-full overflow-y-scroll">
 
-      {/* <Stories slides={slides} /> */}
+      <Stories slides={slides} />
+      
       <Upload />
       <Post />
-      {/* <Post />
-      <Post />
-      <Post /> */}
     </div>
   );
 }

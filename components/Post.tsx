@@ -27,7 +27,15 @@ function Post() {
     const fetchingPost = async () => {
       console.log("calling fetchdata function");
       try {
-        const response = await axios.get("http://localhost:8080/post/all");
+     
+        const token = localStorage.getItem("token");
+        console.log(token);
+        const response = await axios.get("http://localhost:8080/post/all", {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Access-Control-Allow-Origin': '*',
+          }
+        });
         console.log(response.data);
 
         setPosts(response.data);
