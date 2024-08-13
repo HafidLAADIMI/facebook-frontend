@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import React from "react";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { IoMdClose } from "react-icons/io";
@@ -10,7 +10,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Image from "next/image";
 
-function Post() {
+function page() {
   const image = "/rahimi.jpg";
   const midan = "/midan.jpg";
 
@@ -22,8 +22,7 @@ function Post() {
   ];
 
   const [posts, setPosts] = useState([]);
-   
-  
+
   useEffect(() => {
     const fetchingPost = async () => {
       console.log("calling fetchdata function");
@@ -32,9 +31,9 @@ function Post() {
         console.log(token);
         const response = await axios.get("http://localhost:8080/post/all", {
           headers: {
-            'Authorization': `Bearer ${token}`,
-            'Access-Control-Allow-Origin': '*',
-          }
+            Authorization: `Bearer ${token}`,
+            "Access-Control-Allow-Origin": "*",
+          },
         });
         console.log(response.data);
 
@@ -48,25 +47,28 @@ function Post() {
   const deletePost = async (id) => {
     try {
       const token = localStorage.getItem("token");
-      console.log("delete   "+token);
-      const response = await axios.delete(`http://localhost:8080/post/${id}`, {
+      console.log("delete   " + token);
+      const response = await axios.delete(`http://localhost:8080/userPost/${id}`, {
         headers: {
-          'Access-Control-Allow-Origin': '*',
-          'Authorization': `Bearer ${token}`,
-        }
+          "Access-Control-Allow-Origin": "*",
+          Authorization: `Bearer ${token}`,
+        },
       });
       console.log("Post deleted successfully:", response.data);
       window.location.reload();
     } catch (error) {
-      console.error("Error deleting post:", error.response?.data || error.message);
+      console.error(
+        "Error deleting post:",
+        error.response?.data || error.message
+      );
     }
   };
   return (
-    <>
+    <div className="lg:basis-1/2 flex flex-col items-center gap-4 px-6 bg-slate-200 h-full overflow-y-scroll">
       {posts.map((post) => (
         <div
           key={post.post_id}
-          className="flex flex-col font-bold w-full py-3 px-2 items-center gap-4 bg-white shadow-md rounded-md "
+          className="flex flex-col  font-bold  py-3 px-2 items-center gap-4 bg-white shadow-md rounded-md "
         >
           <div className="flex flex-row w-full items-center justify-between">
             <div className="flex flex-row gap-2  items-center">
@@ -82,7 +84,10 @@ function Post() {
             </div>
             <div className="flex flex-row items-center gap-2">
               <HiOutlineDotsHorizontal />
-              <IoMdClose className="hover:cursor-pointer" onClick={()=>deletePost(post.post_id)} />
+              <IoMdClose
+                className="hover:cursor-pointer"
+                onClick={() => deletePost(6)}
+              />
             </div>
           </div>
           <p className="items-start">{post.text}</p>
@@ -119,8 +124,8 @@ function Post() {
           </div>
         </div>
       ))}
-    </>
+    </div>
   );
 }
 
-export default Post;
+export default page;

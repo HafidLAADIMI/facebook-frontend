@@ -9,7 +9,7 @@ interface Sliders {
 }
 
 function CenterBar() {
-  const img1 = "/img_1.jpg";
+
   const img2 = "/img_2.jpg";
   const img3 = "/img_3.jpg";
   const img4 = "/img_4.jpg";
@@ -18,7 +18,6 @@ function CenterBar() {
   const img7 = "/img_7.jpg";
 
   const slides: Sliders[] = [
-    { item: img1 },
     { item: img2 },
     { item: img3 },
     { item: img4 },
@@ -29,9 +28,8 @@ function CenterBar() {
 
   return (
     <div className="lg:basis-1/2 flex flex-col items-center gap-4 px-6 bg-slate-200 h-full overflow-y-scroll">
-
       <Stories slides={slides} />
-      
+
       <Upload />
       <Post />
     </div>
